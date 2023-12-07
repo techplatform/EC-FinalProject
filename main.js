@@ -1,3 +1,3 @@
 function userWelcome() {
-    window.location.href = '/user.html';
+    window.location.href = 'public/user.html';
 }

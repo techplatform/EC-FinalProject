@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 const port = 3000;
@@ -7,7 +8,9 @@ const port = 3000;
 // store users
 const registeredUsers = [];
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
+
 app.use(bodyParser.json());
 
 app.post('/register', (req, res) => {

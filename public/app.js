@@ -20,7 +20,7 @@ function registerUser() {
       localStorage.setItem('registeredUser', JSON.stringify(userData));
 
       //take me to login page
-      window.location.href = '/login.html';
+      window.location.href = 'login.html';
     })
     .catch(error => console.error('Error:', error));
 }
@@ -46,8 +46,50 @@ function login() {
   window.location.href = '/calender.html';
 }
 
+//event creation
+document.getElementById('createEvent').addEventListener('click', () => {
+      const title = window.prompt('Enter event title:');
+      const date = window.prompt('Enter event date:');
+      const location = window.prompt('Enter event location:');
+
+      const message = `Event Details:\nTitle: ${title}\nDate: ${date}\nLocation: ${location}`;
+
+      const eventItem = document.createElement('li');
+      eventItem.className = 'eventItem';
+
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'eventDetail';
+      titleDiv.textContent = `Title: ${title}`;
+      eventItem.appendChild(titleDiv);
+
+      const dateDiv = document.createElement('div');
+      dateDiv.className = 'eventDetail';
+      dateDiv.textContent = `Date: ${date}`;
+      eventItem.appendChild(dateDiv);
+
+      const locationDiv = document.createElement('div');
+      locationDiv.className = 'eventDetail';
+      locationDiv.textContent = `Location: ${location}`;
+      eventItem.appendChild(locationDiv);
+
+      console.log(message);
+
+      //alert(message);
+
+      //document.getElementById('messageContainer').textContent = message;
+      const eventList = document.getElementById('eventList');
+      eventList.appendChild(eventItem);
+});
+
+
+
+
+
+
 function DarkModeToggle() {
     const body = document.body;
     body.classList.toggle('dark-mode');
 }
+
+document.getElementById('logOut').addEventListener('click', () => {window.location.href = 'login.html';});
 document.getElementById('darkModeToggle').addEventListener('click', DarkModeToggle);
