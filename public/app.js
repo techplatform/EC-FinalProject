@@ -24,6 +24,7 @@ function registerUser() {
     })
     .catch(error => console.error('Error:', error));
 }
+
 document.addEventListener('DOMContentLoaded', () => {
   // get user information here
   const storedUserData = localStorage.getItem('registeredUser');
@@ -81,9 +82,53 @@ document.getElementById('createEvent').addEventListener('click', () => {
       eventList.appendChild(eventItem);
 });
 
+//calender portion
+document.addEventListener('DOMContentLoaded', function () {
+  displayCalendar();
+  highlightCurrentDay();
+});
 
+function displayCalendar() {
+  const calendarBody = document.getElementById('calendar-body');
+  const daysInMonth = 31;
 
+  let dayCounter = 1;
 
+  for (let i = 0; i < 6; i++) {
+      const row = document.createElement('tr');
+
+      for (let j = 0; j < 7; j++) {
+          const cell = document.createElement('td');
+          if (i === 0 && j < getFirstDayOfMonth()) {
+              cell.innerText = ''; //simple ui
+          } else if (dayCounter <= daysInMonth) {
+              cell.innerText = dayCounter;
+              dayCounter++;
+          }
+          row.appendChild(cell);
+      }
+      calendarBody.appendChild(row);
+  }
+}
+
+function getFirstDayOfMonth() {
+  const currentDate = new Date();
+  currentDate.setDate(1); 
+  return currentDate.getDay(); 
+}
+
+//highlights what day it is
+function highlightCurrentDay() {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const cells = document.querySelectorAll('td');
+
+  cells.forEach(cell => {
+      if (cell.innerText === currentDay.toString()) {
+          cell.classList.add('current-day');
+      }
+  });
+}
 
 
 function DarkModeToggle() {
