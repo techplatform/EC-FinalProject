@@ -86,6 +86,15 @@ document.getElementById('createEvent').addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', function () {
   displayCalendar();
   highlightCurrentDay();
+  displayComments();
+
+  //makiing all the days as event listeners
+  const cells = document.querySelectorAll('td');
+  cells.forEach(cell => {
+    cell.addEventListener('click', () => {
+      addEvent(cell.innerText);
+    });
+  });
 });
 
 function displayCalendar() {
@@ -130,6 +139,92 @@ function highlightCurrentDay() {
   });
 }
 
+//making the event appear on the list 
+function addEvent(day) {
+  const title = window.prompt('Enter event title:');
+  const date = window.prompt('Enter event date:');
+  const location = window.prompt('Enter event location:');
+
+  const event = { title, date, location };
+
+  // checking to see if there are already events
+  let eventsForDay = JSON.parse(localStorage.getItem(`events-${day}`)) || [];
+  eventsForDay.push(event);
+
+  // store the infromation
+  localStorage.setItem(`events-${day}`, JSON.stringify(eventsForDay));
+
+  //add to the page
+  displayEvents();
+}
+
+function displayEvents() {
+  // Clear existing events
+  const eventList = document.getElementById('eventList');
+  eventList.innerHTML = '';
+
+  // Display events for each day
+  for (let day = 1; day <= 31; day++) {
+    const eventsForDay = JSON.parse(localStorage.getItem(`events-${day}`)) || [];
+
+    eventsForDay.forEach(event => {
+      const eventItem = document.createElement('li');
+      eventItem.className = 'eventItem';
+
+      const dateDiv = document.createElement('div');
+      dateDiv.className = 'eventDate';
+      dateDiv.textContent = `Event on ${event.date}`;
+      eventItem.appendChild(dateDiv);
+
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'eventDetail';
+      titleDiv.textContent = `Title: ${event.title}`;
+      eventItem.appendChild(titleDiv);
+
+      const locationDiv = document.createElement('div');
+      locationDiv.className = 'eventDetail';
+      locationDiv.textContent = `Location: ${event.location}`;
+      eventItem.appendChild(locationDiv);
+
+      eventList.appendChild(eventItem);
+    });
+  }
+}
+
+function addComment() {
+  const commentInput = document.getElementById('commentInput');
+  const comment = commentInput.value.trim();
+
+  if (comment !== '') {
+    const comments = JSON.parse(localStorage.getItem('comments')) || [];
+    comments.push(comment);
+    localStorage.setItem('comments', JSON.stringify(comments));
+
+    commentInput.value = '';
+
+    displayComments();
+    displayLatestComment(comment);
+  }
+}
+
+function displayComments() {
+  const commentList = document.getElementById('commentList');
+  commentList.innerHTML = '';
+
+  const comments = JSON.parse(localStorage.getItem('comments')) || [];
+
+  comments.forEach(comment => {
+    const commentItem = document.createElement('div');
+    commentItem.className = 'commentItem';
+    commentItem.textContent = comment;
+    commentList.appendChild(commentItem);
+  });
+}
+
+function displayLatestComment(comment) {
+  const latestCommentDiv = document.getElementById('latestComment');
+  latestCommentDiv.textContent = `Latest Comment: ${comment}`;
+}
 
 function DarkModeToggle() {
     const body = document.body;

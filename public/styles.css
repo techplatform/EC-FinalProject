@@ -60,8 +60,43 @@ button {
   border-radius: 10px;
   position: fixed;
   left: 10px;
-  top: 60px;
+  top: 70px;
 }
+
+#commentContent {
+  padding: 10px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  position: fixed;
+  right: 10px;
+  top: 70px;
+  width: 200px;
+}
+
+#commentInput {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+#commentButton {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+#commentList {
+  margin-top: 10px;
+}
+
+.commentItem {
+  margin-bottom: 5px;
+  background-color: white;
+  padding: 10px; 
+  border-radius: 5px; 
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+}
+
 
 #eventList {
   list-style-type: none;
