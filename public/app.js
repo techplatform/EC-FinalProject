@@ -162,12 +162,14 @@ function displayEvents() {
   // Clear existing events
   const eventList = document.getElementById('eventList');
   eventList.innerHTML = '';
+  
 
   // Display events for each day
   for (let day = 1; day <= 31; day++) {
     const eventsForDay = JSON.parse(localStorage.getItem(`events-${day}`)) || [];
 
-    eventsForDay.forEach(event => {
+    eventsForDay.forEach((event, index) => {
+      
       const eventItem = document.createElement('li');
       eventItem.className = 'eventItem';
 
@@ -186,9 +188,57 @@ function displayEvents() {
       locationDiv.textContent = `Location: ${event.location}`;
       eventItem.appendChild(locationDiv);
 
+      const btnContainer = document.createElement('div');
+      btnContainer.className = 'btnContainer';
+
+      // edit button
+      const editBtn = document.createElement('button');
+      editBtn.className = 'editBtn';
+      editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+      editBtn.onclick = () => editEvent(day, index);
+      btnContainer.appendChild(editBtn);
+
+      // delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'deleteBtn';
+      deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+      deleteBtn.onclick = () => deleteEvent(day, index);
+      btnContainer.appendChild(deleteBtn);
+
+      eventItem.appendChild(btnContainer);
       eventList.appendChild(eventItem);
     });
   }
+}
+
+//event edit button
+function editEvent(day, index) {
+  const eventsForDay = JSON.parse(localStorage.getItem(`events-${day}`)) || [];
+  const event = eventsForDay[index];
+
+  const updatedTitle = prompt('Edit title:', event.title);
+  const updatedLocation = prompt('Edit location:', event.location);
+
+  if (updatedTitle !== null && updatedLocation !== null) {
+    eventsForDay[index] = {
+      date: event.date,
+      title: updatedTitle,
+      location: updatedLocation,
+    };
+
+    localStorage.setItem(`events-${day}`, JSON.stringify(eventsForDay));
+
+    displayEvents();
+  }
+}
+
+//event delete button
+function deleteEvent(day, index) {
+  const eventsForDay = JSON.parse(localStorage.getItem(`events-${day}`)) || [];
+  eventsForDay.splice(index, 1);
+  localStorage.setItem(`events-${day}`, JSON.stringify(eventsForDay));
+
+  displayEvents();
 }
 
 function addComment() {
