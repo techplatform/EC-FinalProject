@@ -213,18 +213,62 @@ function displayComments() {
 
   const comments = JSON.parse(localStorage.getItem('comments')) || [];
 
-  comments.forEach(comment => {
+  comments.forEach((comment, index) => {
     const commentItem = document.createElement('div');
     commentItem.className = 'commentItem';
-    commentItem.textContent = comment;
+    
+    const commentText = document.createElement('div');
+    commentText.textContent = comment;
+    commentItem.appendChild(commentText);
+
+    const btnContainer = document.createElement('div');
+    btnContainer.className = 'btnContainer';
+    
+
+    // Create Edit button
+    const editBtn = document.createElement('button');
+    // editBtn.textContent = 'Edit';
+    editBtn.className = 'editBtn';
+    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+    editBtn.onclick = () => editComment(index);
+    btnContainer.appendChild(editBtn);
+
+    // Create Delete button
+    const deleteBtn = document.createElement('button');
+    // deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'deleteBtn';
+    deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    deleteBtn.onclick = () => deleteComment(index);
+    btnContainer.appendChild(deleteBtn);
+
+    commentItem.appendChild(btnContainer);
     commentList.appendChild(commentItem);
   });
 }
 
-function displayLatestComment(comment) {
-  const latestCommentDiv = document.getElementById('latestComment');
-  latestCommentDiv.textContent = `Latest Comment: ${comment}`;
+//edit comment
+function editComment(index){
+  const comments = JSON.parse(localStorage.getItem('comments')) || [];
+  const updatedComment = prompt('Edit comment:', comments[index]);
+
+  if (updatedComment !== null) {
+    comments[index] = updatedComment;
+    localStorage.setItem('comments', JSON.stringify(comments));
+
+    displayComments();
+  }
 }
+
+//delete comment
+function deleteComment(index) {
+  const comments = JSON.parse(localStorage.getItem('comments')) || [];
+  comments.splice(index, 1);
+  localStorage.setItem('comments', JSON.stringify(comments));
+  displayComments();
+}
+
+
+
 
 function DarkModeToggle() {
     const body = document.body;

@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Event Calender</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
   <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
  <h1 id="calender">Welcome!</h1>
@@ -15,6 +19,14 @@
 
     <button id="createEvent">Create Event</button>
   </div>
+
+  <div id="commentContent">
+    <label for="commentInput">Add a Comment:</label>
+    <input type="text" id="commentInput" placeholder="Enter your comment">
+    <button onclick="addComment()">Submit</button>
+    <div id="commentList"></div>
+  </div>
+  
   <div>
       <table>
           <thead>
@@ -32,12 +44,7 @@
         
       </table>
   </div>
-  <div id="commentContent">
-    <label for="commentInput">Add a Comment:</label>
-    <input type="text" id="commentInput" placeholder="Enter your comment">
-    <button onclick="addComment()">Submit</button>
-    <div id="commentList"></div>
-  </div>
+  
   
   
   
