@@ -148,11 +148,20 @@ function highlightCurrentDay() {
 //making the event appear on the list 
 function addEvent(day) {
   const title = window.prompt('Enter event title:');
-  const date = window.prompt('Enter event date:');
+  // const date = window.prompt('Enter event date:');
+  //Date based on the click of the user
+  const currentDate = new Date();
+  const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+
   const location = window.prompt('Enter event location:');
   const category = window.prompt('Enter evnet category:');
 
-  const event = { title, date, location, category };
+  const event = { 
+    title, 
+    date: clickedDate.toLocaleDateString(), 
+    location, 
+    category 
+  };
 
   // checking to see if there are already events
   let eventsForDay = JSON.parse(localStorage.getItem(`events-${day}`)) || [];
