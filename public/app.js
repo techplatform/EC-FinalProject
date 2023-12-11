@@ -52,6 +52,7 @@ document.getElementById('createEvent').addEventListener('click', () => {
       const title = window.prompt('Enter event title:');
       const date = window.prompt('Enter event date:');
       const location = window.prompt('Enter event location:');
+      const category = window.prompt('Enter event category:');
 
       const message = `Event Details:\nTitle: ${title}\nDate: ${date}\nLocation: ${location}`;
 
@@ -72,6 +73,11 @@ document.getElementById('createEvent').addEventListener('click', () => {
       locationDiv.className = 'eventDetail';
       locationDiv.textContent = `Location: ${location}`;
       eventItem.appendChild(locationDiv);
+
+      const categoryDiv = document.createElement('div');
+      categoryDiv.className = 'eventDetail';
+      categoryDiv.textContent = `Category: ${category}`;
+      eventItem.appendChild(categoryDiv);
 
       console.log(message);
 
@@ -144,8 +150,9 @@ function addEvent(day) {
   const title = window.prompt('Enter event title:');
   const date = window.prompt('Enter event date:');
   const location = window.prompt('Enter event location:');
+  const category = window.prompt('Enter evnet category:');
 
-  const event = { title, date, location };
+  const event = { title, date, location, category };
 
   // checking to see if there are already events
   let eventsForDay = JSON.parse(localStorage.getItem(`events-${day}`)) || [];
@@ -187,6 +194,11 @@ function displayEvents() {
       locationDiv.className = 'eventDetail';
       locationDiv.textContent = `Location: ${event.location}`;
       eventItem.appendChild(locationDiv);
+
+      const categoryDiv = document.createElement('div');
+      categoryDiv.className = 'eventDetail';
+      categoryDiv.textContent = `Category: ${event.category}`;
+      eventItem.appendChild(categoryDiv);
 
       const btnContainer = document.createElement('div');
       btnContainer.className = 'btnContainer';
