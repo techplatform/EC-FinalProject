@@ -20,7 +20,7 @@ function registerUser() {
       localStorage.setItem('registeredUser', JSON.stringify(userData));
 
       //take me to login page
-      window.location.href = 'login.html';
+      window.location.href = '/login.html';
     })
     .catch(error => console.error('Error:', error));
 }
