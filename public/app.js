@@ -89,6 +89,26 @@ document.getElementById('createEvent').addEventListener('click', () => {
 });
 
 //calender portion
+
+//name of the month
+document.addEventListener('DOMContentLoaded', () => {
+
+  function displayCurrentMonth() {
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    const currentDate = new Date();
+    const currentMonth = months[currentDate.getMonth()];
+    
+    document.getElementById('currentMonth').textContent = `${currentMonth}`;
+  }
+
+  displayCurrentMonth();
+
+});
+
 document.addEventListener('DOMContentLoaded', function () {
   displayCalendar();
   highlightCurrentDay();
@@ -375,8 +395,6 @@ function deleteComment(index) {
   localStorage.setItem('comments', JSON.stringify(comments));
   displayComments();
 }
-
-
 
 
 function DarkModeToggle() {
