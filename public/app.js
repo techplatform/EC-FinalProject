@@ -2,7 +2,11 @@ function registerUser() {
     const name = document.getElementById('name').value;
     const occupation = document.getElementById('occupation').value;
     const purpose = document.getElementById('purpose').value;
-  
+    const userObject = {
+      name : document.getElementById('name').value,
+      occupation : document.getElementById('occupation').value,
+      purpose : document.getElementById('purpose').value
+   }
     // Send data to fetch API 
     fetch ('/register', {
       method: 'POST',
@@ -10,7 +14,7 @@ function registerUser() {
         'Content-Type': 'application/json',
         'Accept-Type' : 'application/json'
       },
-      body: JSON.stringify({ name, occupation, purpose }),
+      body: JSON.stringify({userObject}),
     })
     .then(response => response.json())
     .then(data => {
