@@ -7,7 +7,7 @@ function registerUser() {
       occupation : document.getElementById('occupation').value,
       purpose : document.getElementById('purpose').value
    }
-    // Send data to fetch API 
+    // Send data to fetch API test
     fetch ('/register', {
       method: 'POST',
       headers: {
