@@ -145,6 +145,35 @@ function highlightCurrentDay() {
   });
 }
 
+//category modal for users to choose
+function categoryModal() {
+  const selectedCategory = window.prompt(
+    'Category:\n' +
+    '1. Personal\n' +
+    '2. Work\n' +
+    '3. School\n' +
+    '4. Birthday\n' +
+    '5. Vacation\n',
+    '1'
+  );
+
+  switch (selectedCategory) {
+    case '1':
+      return 'personal';
+    case '2':
+      return 'work';
+    case '3':
+      return 'school';
+    case '4':
+      return 'birthday';
+    case '5':
+      return 'vacation';
+    default:
+      return 'personal';
+  }
+}
+
+
 //making the event appear on the list 
 function addEvent(day) {
   const title = window.prompt('Enter event title:');
@@ -154,21 +183,26 @@ function addEvent(day) {
   const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
 
   const location = window.prompt('Enter event location:');
-  const category = window.prompt('Enter evnet category:');
+  // const category = window.prompt('Enter evnet category:');
+  const category = categoryModal();  
+  const color = window.prompt('Enter event color (e.g., red, blue, green):');
 
   const event = { 
     title, 
     date: clickedDate.toLocaleDateString(), 
     location, 
-    category 
+    category,
+    color, 
   };
 
   // checking to see if there are already events
   let eventsForDay = JSON.parse(localStorage.getItem(`events-${day}`)) || [];
+  //console.log('Before:', eventsForDay);
   eventsForDay.push(event);
 
   // store the infromation
   localStorage.setItem(`events-${day}`, JSON.stringify(eventsForDay));
+  //console.log('After:', JSON.parse(localStorage.getItem(`events-${day}`)));
 
   //add to the page
   displayEvents();
@@ -178,7 +212,7 @@ function displayEvents() {
   // Clear existing events
   const eventList = document.getElementById('eventList');
   eventList.innerHTML = '';
-  
+
 
   // Display events for each day
   for (let day = 1; day <= 31; day++) {
@@ -188,6 +222,8 @@ function displayEvents() {
       
       const eventItem = document.createElement('li');
       eventItem.className = 'eventItem';
+
+      eventItem.style.backgroundColor = event.color || '';
 
       const dateDiv = document.createElement('div');
       dateDiv.className = 'eventDate';
@@ -211,6 +247,8 @@ function displayEvents() {
 
       const btnContainer = document.createElement('div');
       btnContainer.className = 'btnContainer';
+
+      
 
       // edit button
       const editBtn = document.createElement('button');

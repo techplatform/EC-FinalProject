@@ -203,6 +203,6 @@ td:hover {
 }
 
 .current-day {
-  background-color: #4CAF50;
+  background-color: rgb(255, 176, 86);
   color: #fff;
 }
