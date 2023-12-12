@@ -8,7 +8,7 @@ function registerUser() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept-Type' : 'application/json',
+        'Accept-Type' : 'application/json'
       },
       body: JSON.stringify({ name, occupation, purpose }),
     })
@@ -23,7 +23,7 @@ function registerUser() {
       //take me to login page
       window.location.href = 'login.html';
     })
-    .catch(error => console.e.error('Error:', error));
+    .catch(error => console.error('Error:', error));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
