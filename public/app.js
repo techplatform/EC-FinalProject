@@ -2,20 +2,19 @@ function registerUser() {
     const name = document.getElementById('name').value;
     const occupation = document.getElementById('occupation').value;
     const purpose = document.getElementById('purpose').value;
-    const userObject = {
-      name : document.getElementById('name').value,
-      occupation : document.getElementById('occupation').value,
-      purpose : document.getElementById('purpose').value
-   }
+
+   console.log(JSON.stringify({name, occupation, purpose}))
     // Send data to fetch API test
     fetch ('/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept-Type' : 'application/json'
+        'Accept' : 'application/json'
       },
-      body: JSON.stringify({userObject}),
+      body: JSON.stringify({name, occupation, purpose}),
+      
     })
+
     .then(response => response.json())
     .then(data => {
       alert('Registration successful!');
