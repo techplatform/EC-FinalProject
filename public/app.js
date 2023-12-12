@@ -4,10 +4,11 @@ function registerUser() {
     const purpose = document.getElementById('purpose').value;
   
     // Send data to fetch API 
-    fetch('/register', {
+    fetch ('/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept-Type' : 'application/json',
       },
       body: JSON.stringify({ name, occupation, purpose }),
     })
@@ -20,9 +21,9 @@ function registerUser() {
       localStorage.setItem('registeredUser', JSON.stringify(userData));
 
       //take me to login page
-      window.location.href = '/login.html';
+      window.location.href = 'login.html';
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.e.error('Error:', error));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
